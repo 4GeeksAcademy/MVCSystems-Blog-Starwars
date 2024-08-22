@@ -1,8 +1,12 @@
 import React from "react";
-import { Navbar } from "./Navbar.jsx";
+import { Character } from "./Character.jsx";
+import { Planets } from "./Planets.jsx";
 
-const Contenedor = () => {
-  return <Navbar />;
+export const Contenedor = () => {
+  return (
+    <>
+      <Character />
+      <Planets />
+    </>
+  );
 };
-
-export default Contenedor;

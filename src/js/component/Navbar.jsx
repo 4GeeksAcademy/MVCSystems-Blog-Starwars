@@ -1,53 +1,45 @@
 import React from "react";
+import StarwarsIco from "../../img/starwars.png";
 
-const Navbar = () => {
+export const Navbar = () => {
   return (
-    <nav class="navbar bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="fa-brands fa-instagram"></i>
-          Instagram
+    <nav className="navbar bg-light">
+      <div className="container">
+        <a className="navbar-brand" href="#">
+          <img src={StarwarsIco} alt="" />
         </a>
-        <div class="d-flex align-items-center">
-          <button
-            type="button"
-            class="btn btn-success ms-3 me-3"
-            data-bs-toggle="modal"
-            data-bs-target="#ModalPublish"
-          >
-            Create new post
-          </button>
-          <div class="dropdown">
+        <div className="d-flex align-items-center">
+          <div className="dropdown">
             <button
-              class="btn btn-secondary dropdown-toggle"
+              className="btn btn-primary dropdown-toggle"
               type="button"
               id="dropdownMenuButton1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <i class="fas fa-cog"></i>
+              Favorites
             </button>
             <ul
-              class="dropdown-menu dropdown-menu-end"
+              className="dropdown-menu dropdown-menu-end"
               aria-labelledby="dropdownMenuButton1"
             >
               <li>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Profile
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Accesibility
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#">
+                <a className="dropdown-item" href="#">
                   Privacy and Data
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#" style="color: red">
+                <a className="dropdown-item" href="#" style={{ color: "red" }}>
                   Log out
                 </a>
               </li>
@@ -58,5 +50,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;
