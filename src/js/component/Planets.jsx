@@ -16,7 +16,7 @@ export const Planets = () => {
         {store.planets &&
           store.planets.length > 0 &&
           store.planets.map((planets, index) => (
-            <div className="col-md-3 mb-3" key={index}>
+            <div className="col-md-4 mb-4" key={index}>
               <CardPlanets
                 key={planets.id}
                 name={planets.name}
