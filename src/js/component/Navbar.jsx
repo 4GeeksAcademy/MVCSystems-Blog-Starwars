@@ -18,6 +18,7 @@ export const Navbar = () => {
               aria-expanded="false"
             >
               Favorites
+              <span className="badge text-bg-secondary">4</span>
             </button>
             <ul
               className="dropdown-menu dropdown-menu-end"

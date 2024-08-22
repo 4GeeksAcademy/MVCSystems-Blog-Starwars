@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import imagencard from "../../img/400x200.jpg";
+import { useNavigate, Link } from "react-router-dom";
+import imagencard from "../../img/rigo-baby.jpg";
 import { Context } from "../store/appContext";
 
-export const CardPlanets = ({ name, climate, terrain, population, id }) => {
+export const CardPlanets = ({ name, id }) => {
   const { actions } = useContext(Context);
   const navigate = useNavigate();
 
   const handleLearnMore = () => {
-    actions.setCurrentPlanets({ name, climate, terrain, population, id });
-    // navigate("/Detalleplanets");
+    navigate(`/detallePlanets/${id}`);
   };
 
   return (
@@ -26,17 +25,15 @@ export const CardPlanets = ({ name, climate, terrain, population, id }) => {
             <div className="card-body p-3">
               {" "}
               <h5 className="card-title text-primary">{name}</h5>
-              <div className="card-text">
-                <p>Terrain: {terrain}</p>
-                <p>Population: {population}</p>
-              </div>
-              <div className="card-text mb-2 mt-2 d-flex justify-content-between gap-4">
+              <div className="card-text mb-2 mt-2 d-flex justify-content-between mt-4 gap-4">
                 <button
                   type="button"
                   className="btn btn-border-primary btn-outline-danger"
-                  // onClick={handleLearnMore}
+                  onClick={handleLearnMore}
                 >
-                  Ver mas...
+                  <Link to={`/viewplanets/${id}`} className="text-white">
+                    ver mas..
+                  </Link>
                 </button>
                 <button
                   type="button"

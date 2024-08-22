@@ -77,6 +77,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getPlanetDetails: async (uid) => {
+        try {
+          const response = await fetch(
+            `https://www.swapi.tech/api/planets/${uid}`
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setStore({ planetDetails: data.result.properties });
+        } catch (error) {
+          console.error("Error fetching planet details:", error);
+        }
+      },
+
       setCurrentPlanets: (carPlanetValues) => {
         const store = getStore();
         setStore({ ...store, currentPlanets: carPlanetValues });

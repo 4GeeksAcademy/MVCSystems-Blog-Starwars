@@ -19,14 +19,14 @@ export const Character = () => {
           {store.characters &&
             store.characters.length > 0 &&
             store.characters.map((characters, index) => (
-              <div className="col-md-4 mb-4" key={index}>
+              <div className="col-md-3 mb-3" key={index}>
                 <CardCharacter
                   key={characters.uid}
                   name={characters.name}
-                  gender={characters.gender}
-                  hair_color={characters.hair_color}
-                  eye_color={characters.eye_color}
                   uid={characters.uid}
+                  // gender={characters.gender}
+                  // hair_color={characters.hair_color}
+                  // eye_color={characters.eye_color}
                 />
               </div>
             ))}
