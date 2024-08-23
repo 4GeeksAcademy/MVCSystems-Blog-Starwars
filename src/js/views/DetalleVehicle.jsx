@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Context } from "../store/appContext";
+import { Context } from "../store/appContext.js";
 import { Navbar } from "../component/Navbar.jsx";
 
-const DetalleCharacter = () => {
+const DetalleVehicles = () => {
   const { store, actions } = useContext(Context);
   const { uid } = useParams();
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const DetalleCharacter = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await actions.getCharacterDetails(uid);
+      await actions.getVehicleDetails(uid);
       setLoading(false);
     };
     fetchData();
@@ -21,61 +21,63 @@ const DetalleCharacter = () => {
     return <div>Cargando...</div>;
   }
 
-  const character = store.characterDetails;
+  const vehicle = store.vehicleDetails;
+
   return (
     <>
       <Navbar />
-      <div className="container mt-5">
+      <div className="container bg-gradient p-4 rounded mt-4">
         <div className="card shadow-lg border-0">
           <div className="row g-0 mt-5">
             <div className="col-md-4 d-flex justify-content-center align-items-center">
               <img
-                src={`https://starwars-visualguide.com/assets/img/characters/${uid}.jpg`}
+                src={`https://starwars-visualguide.com/assets/img/vehicles/${uid}.jpg`}
                 className="img-fluid rounded"
                 style={{ maxWidth: "85%", height: "90%" }}
               />
             </div>
             <div className="col-md-8">
               <div className="card-body p-4">
-                <h3 className="card-title display-4 text-primary">
-                  {character.name}
-                </h3>
-                <p className="text-muted">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Corrupti numquam nostrum atque sint odit. Deserunt odio
-                  molestiae repellat nihil ex excepturi culpa rem, quasi dolorem
-                  tempore ea, veniam repudiandae nostrum esse accusantium dicta
-                  optio quibusdam libero quam atque, nam tenetur officiis harum?
-                  Illum ullam enim fugiat voluptas exercitationem excepturi
-                  praesentium.
+                <h1 className="card-title display-4 text-primary">
+                  {vehicle.name}
+                </h1>
+                <p>
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                  Voluptatibus nesciunt fugit iure accusamus voluptatem ad
+                  aliquid ipsa commodi perferendis necessitatibus, tempora
+                  eveniet fuga pariatur! Quae excepturi deserunt ad. Beatae
+                  voluptas, eveniet quae enim obcaecati mollitia vitae nulla
+                  suscipit voluptatem laboriosam quis possimus laborum
+                  molestiae, facilis, facere culpa officia soluta deserunt!
                 </p>
                 <div className="row">
                   <div className="col-md-6">
                     <p className="card-text">
-                      <strong>Height:</strong> {character.height}
+                      <strong>Climate:</strong> {vehicle.climate}
                     </p>
                     <p className="card-text">
-                      <strong>Mass:</strong> {character.mass}
+                      <strong>Terrain:</strong> {vehicle.terrain}
                     </p>
                     <p className="card-text">
-                      <strong>Hair Color:</strong> {character.hair_color}
+                      <strong>Population:</strong> {vehicle.population}
                     </p>
                     <p className="card-text">
-                      <strong>Skin Color:</strong> {character.skin_color}
+                      <strong>Diameter:</strong> {vehicle.diameter}
                     </p>
                   </div>
                   <div className="col-md-6">
                     <p className="card-text">
-                      <strong>Eye Color:</strong> {character.eye_color}
+                      <strong>Rotation Period:</strong>{" "}
+                      {vehicle.rotation_period}
                     </p>
                     <p className="card-text">
-                      <strong>Birth Year:</strong> {character.birth_year}
+                      <strong>Orbital Period:</strong> {vehicle.orbital_period}
                     </p>
                     <p className="card-text">
-                      <strong>Gender:</strong> {character.gender}
+                      <strong>Gravity:</strong> {vehicle.gravity}
                     </p>
                     <p className="card-text">
-                      <strong>Surface Water:</strong> {character.surface_water}
+                      <strong>Surface Water:</strong> {vehicle.surface_water}
                     </p>
                   </div>
                 </div>
@@ -94,4 +96,4 @@ const DetalleCharacter = () => {
   );
 };
 
-export default DetalleCharacter;
+export default DetalleVehicles;

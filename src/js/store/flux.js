@@ -6,8 +6,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       planets: getFromLocalStorage("planets") || [],
       characters: getFromLocalStorage("characters") || [],
       favorites: getFromLocalStorage("favorites") || [],
-      currentPlanets: [],
-      currentCharacters: {},
     },
     actions: {
       addFavorite: (name) => {
@@ -52,6 +50,21 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      getCharacterDetails: async (uid) => {
+        try {
+          const response = await fetch(
+            "https://www.swapi.tech/api/people/" + uid
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setStore({ characterDetails: data.result.properties });
+        } catch (error) {
+          console.error("Error fetching character details:", error);
+        }
+      },
+
       getPlanets: async () => {
         try {
           const planetsFromStorage = localStorage.getItem("planets");
@@ -92,14 +105,44 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
-      setCurrentPlanets: (carPlanetValues) => {
-        const store = getStore();
-        setStore({ ...store, currentPlanets: carPlanetValues });
+      getVehicles: async () => {
+        try {
+          const vehiclesFromStorage = localStorage.getItem("vehicles");
+          if (vehiclesFromStorage) {
+            // Cargar los datos del localStorage en el store
+            setStore({ vehicles: JSON.parse(vehiclesFromStorage) });
+            return;
+          }
+          // Si los datos no están en el localStorage, hacer la solicitud a la API
+          const response = await fetch("https://www.swapi.tech/api/vehicles");
+          const data = await response.json();
+          // Mapear los resultados para extraer solo los datos necesarios
+          const vehicles = data.results.map((result) => ({
+            id: result.uid,
+            name: result.name,
+            url: result.url,
+          }));
+          // Almacenar los datos en el localStorage
+          localStorage.setItem("vehicles", JSON.stringify(vehicles));
+          setStore({ vehicles });
+        } catch (error) {
+          console.error("Error fetching vehicles:", error);
+        }
       },
 
-      setCurrentCharacters: (cardCharacterValues) => {
-        const store = getStore();
-        setStore({ ...store, currentCharacters: cardCharacterValues });
+      getVehicleDetails: async (uid) => {
+        try {
+          const response = await fetch(
+            "https://www.swapi.tech/api/vehicles/" + uid
+          );
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          const data = await response.json();
+          setStore({ vehicleDetails: data.result.properties });
+        } catch (error) {
+          console.error("Error fetching vehicle details:", error);
+        }
       },
     },
   };

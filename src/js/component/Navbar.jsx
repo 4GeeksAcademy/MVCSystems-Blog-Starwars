@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import StarwarsIco from "../../img/starwars.png";
+import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+
   return (
-    <nav className="navbar bg-light">
+    <nav className="navbar bg-light fixed-top">
       <div className="container">
-        <a className="navbar-brand" href="#">
-          <img src={StarwarsIco} alt="" />
-        </a>
+        <Link to="/" className="navbar-brand">
+          <img src={StarwarsIco} alt="Star Wars" />
+        </Link>
         <div className="d-flex align-items-center">
           <div className="dropdown">
             <button
@@ -18,32 +22,32 @@ export const Navbar = () => {
               aria-expanded="false"
             >
               Favorites
-              <span className="badge text-bg-secondary">4</span>
+              <span className="badge text-bg-secondary">
+                {store.favorites.length}
+              </span>
             </button>
             <ul
               className="dropdown-menu dropdown-menu-end"
               aria-labelledby="dropdownMenuButton1"
             >
-              <li>
-                <a className="dropdown-item" href="#">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Accesibility
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#">
-                  Privacy and Data
-                </a>
-              </li>
-              <li>
-                <a className="dropdown-item" href="#" style={{ color: "red" }}>
-                  Log out
-                </a>
-              </li>
+              {store.favorites.length === 0 ? (
+                <li className="dropdown-item">No favorites added</li>
+              ) : (
+                store.favorites.map((fav, index) => (
+                  <li
+                    className="dropdown-item text-primary d-flex justify-content-between align-items-center"
+                    key={index}
+                  >
+                    <small>{fav}</small>
+                    <button
+                      className="bg-transparent border-0"
+                      onClick={() => actions.deleteFavorite(fav)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>

@@ -1,47 +1,41 @@
 import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import imagencard from "../../img/rigo-baby.jpg";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const CardCharacter = ({ name, gender, hair_color, eye_color, uid }) => {
+export const CardCharacter = ({ name, id }) => {
   const { actions } = useContext(Context);
-  const navigate = useNavigate();
 
-  const handleLearnMore = () => {
-    actions.setCurrentCharacters({ name, gender, hair_color, eye_color, uid });
-    // navigate("/Detalleplanets");
-  };
+  if (!id) {
+    console.error("ID o UID no definido");
+    return (
+      <div className="alert alert-danger" role="alert">
+        <p>Error: ID o UID no definido.</p>
+      </div>
+    );
+  }
 
-  const handleAnotherAction = () => {
-    // Aquí puedes agregar la lógica para la otra acción
-    console.log("Otra acción ejecutada");
-  };
+  const imagencard = `https://starwars-visualguide.com/assets/img/characters/${id}.jpg`;
 
   return (
     <div className="container bg-gradient p-4 rounded">
       <div className="row align-items-start">
         <div className="card shadow-lg border-0">
-          <img
-            src={imagencard}
-            className="card-img-top rounded-top"
-            alt="..."
-          />
+          <img src={imagencard} className="card-img-top rounded-top mt-2" />
           <div className="card-body p-3">
-            <h5 className="card-title text-primary">{name}</h5>
-            <div className="card-text mb-2 mt-2 d-flex justify-content-between mt-4 gap-4">
-              <button
-                type="button"
-                className="btn btn-border-primary btn-outline-danger"
-                // onClick={handleLearnMore}
+            <h5 className="card-text text-primary">{name}</h5>
+            <div className="card-text mb-2 mt-2 d-flex justify-content-between mt-4 gap-2">
+              <Link
+                to={`/detallecharacter/${id}`}
+                className="btn btn-outline-danger d-flex align-items-center"
               >
-                Ver mas...
-              </button>
+                Ver más
+              </Link>
               <button
                 type="button"
                 className="btn btn-border-warning btn-outline-warning ms-2"
-                // onClick={handleAnotherAction}
+                onClick={() => actions.addFavorite(name)}
               >
-                <i className="bi bi-heart"></i>
+                <i className="bi bi-heart-fill"></i>
               </button>
             </div>
           </div>

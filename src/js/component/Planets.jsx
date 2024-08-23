@@ -20,8 +20,6 @@ export const Planets = () => {
               <CardPlanets
                 key={planets.id}
                 name={planets.name}
-                population={planets.population}
-                terrain={planets.terrain}
                 id={planets.id}
               />
             </div>
