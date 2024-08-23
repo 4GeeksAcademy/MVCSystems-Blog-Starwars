@@ -80,7 +80,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getPlanetDetails: async (uid) => {
         try {
           const response = await fetch(
-            `https://www.swapi.tech/api/planets/${uid}`
+            "https://www.swapi.tech/api/planets/" + uid
           );
           if (!response.ok) {
             throw new Error("Network response was not ok");
